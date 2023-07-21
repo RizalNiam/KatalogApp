@@ -31,19 +31,25 @@ class UserController extends Controller
         if ($validator->fails()) {
             return $this->responseValidation($validator->errors(), 'register gagal, silahkan coba kembali');
         }
- 
+        
+        $user = User::where('username', $request->username)->first();
+
+        if ($user) {
+            // Jika nomor telepon sudah terdaftar, kirim response dengan pesan error
+            return $this->badRequest('Sorry the username number is already used. Please use a different one');
+        }
         $user = User::where('phone', $request->phone)->first();
 
         if ($user) {
             // Jika nomor telepon sudah terdaftar, kirim response dengan pesan error
-            return $this->badRequest('Sorry, the phone number is already used. Please use a different one');
+            return $this->badRequest('Sorry the phone number is already used. Please use a different one');
         }
 
         $user = User::where('email', $request->email)->first();
 
         if ($user) {
             // Jika nomor email sudah terdaftar, kirim response dengan pesan error
-            return $this->badRequest('Sorry, the email is already used. Please use a different one');
+            return $this->badRequest('Sorry the email is already used. Please use a different one');
         }
 
         $request['password'] = bcrypt($request['password']);
