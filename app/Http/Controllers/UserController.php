@@ -52,6 +52,8 @@ class UserController extends Controller
             return $this->badRequest('Sorry the email is already used. Please use a different one');
         }
 
+        var_dump(bcrypt($request['password']));
+
         $request['password'] = bcrypt($request['password']);
         $user = User::create($request->all());
 
@@ -92,6 +94,64 @@ class UserController extends Controller
             ->first(); 
         
         return $this->requestSuccessData('Success!', $rawData);
+    }
+
+    public function editprofile(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string|max:255',
+            'photo' => 'image|file|max:10240'
+        ]);
+
+        // get user's id
+        $user = auth('api')->user();
+
+        if ($validator->fails()) {
+            return $this->responseValidation($validator->errors(), 'Sorry data failed to edit, Please try again');
+        }
+
+        // hapus foto sebelumnya terlebih dulu, jika ada
+        $this->delete_image();
+
+        if($request['photo'] != null){
+            $path = $request->file('photo')->store('public', 'public');
+            $link = "https://magang.crocodic.net/ki/RizalAfifun/KatalogApp/storage/app/public/";
+            $link .= $path;
+
+            DB::table('users')
+            ->where('id', $user->id)
+            ->update([
+                'username' => $request['username'],
+                'photo' => $link
+            ]);
+        } else{
+            DB::table('users')
+            ->where('id', $user->id)
+            ->update([
+                'username' => $request['username'],
+                'photo' => null
+            ]);
+        } 
+
+        $rawData = DB::table('users')
+        ->select('id', 'username', 'photo', 'phone', 'email', 'created_at', 'updated_at', 'schools.school_name as school_name')
+        ->where('id', '=', $user->id)
+        ->first();
+
+        return $this->requestSuccessData('Edit Profile Success', $rawData);
+    }
+
+    public function delete_image()
+    {
+        $user = auth('api')->user();
+
+        $file = storage_path('/app/public/public') . $user->photo;
+
+        if (file_exists($file)) {
+            @unlink($file);
+        }
+
+        $user->delete;
     }
  
     /**

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,9 @@ use App\Http\Controllers\DestinationController;
 */
 
     Route::post('auth/login', [UserController::class,'login']);
+    Route::post('auth/logout', [UserController::class,'logout']);
     Route::post('auth/register', [UserController::class,'register']);
     Route::post('auth/getprofile', [UserController::class,'getprofile']);
+    Route::post('auth/editprofile', [UserController::class,'editprofile']);
     Route::post('auth/destination', [DestinationController::class,'add_destination']);
+    Route::post('auth/addreview', [ReviewController::class,'addreview']);
