@@ -154,14 +154,41 @@ class UserController extends Controller
         $user->delete;
     }
  
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function me()
-    {
-        return response()->json(auth()->user());
+    public function editpassword(Request $request)
+    {	
+        $validator = Validator::make(request()->all(), [
+            'old_password' => 'required|string|min:8|max:255',
+            'password' => 'required|string|same:password|min:8|max:255',
+        ]);
+
+	    $user = auth('api')->user();
+
+        $input = [
+            'id' => $user->id, 
+            'password' => request('old_password')
+        ];
+
+        if (!auth("api")->attempt($input)) {
+            return response()->json(['message' => 'Password not changed, old password is not valid'], 401);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'new_password' => 'required|string|min:8|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->responseValidation($validator->errors(), 'Password not changed, new password is not valid. (min. 8 character)');
+        }
+
+        $request['new_password'] = bcrypt($request['new_password']);        
+
+        DB::table('users')
+            ->where('id', $user->id)
+            ->update([
+                'password' => $request['new_password'],
+            ]);
+
+        return $this->requestSuccess('Edit Password Success');
     }
  
     /**

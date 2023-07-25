@@ -1,10 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\SendEmailController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +26,5 @@ use App\Http\Controllers\ReviewController;
     Route::post('auth/editprofile', [UserController::class,'editprofile']);
     Route::post('auth/destination', [DestinationController::class,'add_destination']);
     Route::post('auth/addreview', [ReviewController::class,'addreview']);
+    Route::post('auth/addbookmark', [BookmarkController::class,'addbookmark']);
+    Route::get('send-email', [SendEmailController::class, 'index']);

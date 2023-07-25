@@ -13,13 +13,13 @@ class DestinationController extends Controller
 
     public function add_destination(Request $request) {
         $validator = Validator::make(request()->all(), [
-            'name' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'facility' => 'required|string|max:255',
-            'budget' => 'required|string|max:255',
-            'photo' => 'required|image|file|max:10240',
-            'category_id' => 'required|string|max:255',
+            'name' => 'string|max:255',
+            'city' => 'string|max:255',
+            'description' => 'string|max:255',
+            'facility' => 'string|max:255',
+            'budget' => 'string|max:255',
+            'photo' => 'image|file|max:10240',
+            'category_id' => 'string|max:255',
         ]);
         
         if ($validator->fails()) {

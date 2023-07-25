@@ -13,6 +13,7 @@ class ReviewController extends Controller
 
     public function addreview(Request $request) {
         $validator = Validator::make(request()->all(), [
+            'destination_id' => 'required|numeric|max:255',
             'rating' => 'required|numeric|max:255',
             'description' => 'required|string|max:255',
         ]);
@@ -24,6 +25,7 @@ class ReviewController extends Controller
         $user = auth('api')->user();
 
         DB::table('reviews')->insert([
+            'destination_id' => $request['destination_id'],
             'rating' => $request['rating'],
             'description' => $request['description'],
             'user_id' => $user->id,
