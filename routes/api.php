@@ -25,6 +25,7 @@ use App\Http\Controllers\SendEmailController;
     Route::post('auth/getprofile', [UserController::class,'getprofile']);
     Route::post('auth/editprofile', [UserController::class,'editprofile']);
     Route::post('auth/destination', [DestinationController::class,'add_destination']);
+    Route::get('auth/img_slider', [DestinationController::class,'get_img_slider']);
     Route::post('auth/addreview', [ReviewController::class,'addreview']);
     Route::post('auth/addbookmark', [BookmarkController::class,'addbookmark']);
     Route::get('send-email', [SendEmailController::class, 'index']);

@@ -55,4 +55,18 @@ class DestinationController extends Controller
 
         $user->delete;
     }
+
+    public function get_img_slider()
+    {
+        $user = auth("api")->user();
+
+        $limit = $_GET['limit'];
+
+        $rawData = DB::table('destinations')
+        ->select('id', 'name', 'photo')
+        ->take($limit)
+        ->get(); 
+        
+        return $this->requestSuccessData('Success!', $rawData);
+    }
 }
