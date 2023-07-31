@@ -46,8 +46,6 @@ class UserController extends Controller
             return $this->badRequest('Sorry the email is already used. Please use a different one');
         }
 
-        var_dump(bcrypt($request['password']));
-
         $request['password'] = bcrypt($request['password']);
         $user = User::create($request->all());
 
