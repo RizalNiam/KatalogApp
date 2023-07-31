@@ -68,7 +68,7 @@ class UserController extends Controller
      */
     public function login()
     {
-        $input = request(['username', 'password']);
+        $input = request(['phone', 'password']);
  
         if (! $token = auth('api')->attempt($input)) {
             return response()->json(['error' => 'Unauthorized'], 401);
