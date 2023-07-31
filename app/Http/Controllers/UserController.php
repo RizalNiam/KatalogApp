@@ -32,12 +32,6 @@ class UserController extends Controller
             return $this->responseValidation($validator->errors(), 'register gagal, silahkan coba kembali');
         }
         
-        $user = User::where('username', $request->username)->first();
-
-        if ($user) {
-            // Jika nomor telepon sudah terdaftar, kirim response dengan pesan error
-            return $this->badRequest('Sorry the username number is already used. Please use a different one');
-        }
         $user = User::where('phone', $request->phone)->first();
 
         if ($user) {
