@@ -138,7 +138,7 @@ class UserController extends Controller
         } 
 
         $rawData = DB::table('users')
-        ->select('id', 'username', 'photo', 'phone', 'email', 'created_at', 'updated_at', 'schools.school_name as school_name')
+        ->select('id', 'username', 'photo', 'phone', 'email', 'created_at', 'updated_at')
         ->where('id', '=', $user->id)
         ->first();
 
