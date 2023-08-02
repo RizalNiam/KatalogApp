@@ -103,7 +103,7 @@ class UserController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'username' => 'required|string|max:255',
+            'username' => 'nullable|string|max:255',
             'photo' => 'image|file|max:10240'
         ]);
 
