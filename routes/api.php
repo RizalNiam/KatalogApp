@@ -19,13 +19,16 @@ use App\Http\Controllers\SendEmailController;
 |
 */
 
-    Route::post('auth/login', [UserController::class,'login']);
-    Route::post('auth/logout', [UserController::class,'logout']);
-    Route::post('auth/register', [UserController::class,'register']);
-    Route::get('auth/getprofile', [UserController::class,'getprofile']);
-    Route::post('auth/editprofile', [UserController::class,'editprofile']);
-    Route::post('auth/destination', [DestinationController::class,'add_destination']);
-    Route::get('auth/img_slider', [DestinationController::class,'get_img_slider']);
-    Route::post('auth/addreview', [ReviewController::class,'addreview']);
-    Route::post('auth/addbookmark', [BookmarkController::class,'addbookmark']);
+Route::post('/auth/login', [UserController::class, 'login']);
+Route::post('/auth/register', [UserController::class, 'register']);
+
+Route::middleware('jwt.verify')->group(function () {
+    Route::post('auth/logout', [UserController::class, 'logout']);
+    Route::get('auth/getprofile', [UserController::class, 'getprofile']);
+    Route::post('auth/editprofile', [UserController::class, 'editprofile']);
+    Route::post('auth/destination', [DestinationController::class, 'add_destination']);
+    Route::get('auth/img_slider', [DestinationController::class, 'get_img_slider']);
+    Route::post('auth/addreview', [ReviewController::class, 'addreview']);
+    Route::post('auth/addbookmark', [BookmarkController::class, 'addbookmark']);
     Route::get('send-email', [SendEmailController::class, 'index']);
+});
