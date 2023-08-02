@@ -8,6 +8,7 @@ use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use SebastianBergmann\Type\NullType;
 use Validator;
  
  
@@ -27,8 +28,6 @@ class UserController extends Controller
             'password' => 'required|string|min:8|max:255',
             'confirm_password' => 'required|string|same:password|min:8|max:255',
         ]);
-
-        var_dump($request['email']);
         
         if ($validator->fails()) {
             return $this->responseValidation($validator->errors(), 'register gagal, silahkan coba kembali');
@@ -41,13 +40,16 @@ class UserController extends Controller
             return $this->badRequest('Sorry the phone number is already used. Please use a different one');
         }
 
-        // $user = User::where('email', $request->email)->first();
+        if ($request["email"] != NULL){
+            $user = User::where('email', $request->email)->first();
 
-        // if ($user) {
-        //     // Jika nomor email sudah terdaftar, kirim response dengan pesan error
-        //     return $this->badRequest('Sorry the email is already used. Please use a different one');
-        // }
-
+            if ($user) {
+                // Jika nomor email sudah terdaftar, kirim response dengan pesan error
+                return $this->badRequest('Sorry the email is already used. Please use a different one');
+            }
+    
+        }
+        
         $request['password'] = bcrypt($request['password']);
         $user = User::create($request->all());
 
