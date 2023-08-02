@@ -22,7 +22,7 @@ class UserController extends Controller
     public function register(Request $request) {
         $validator = Validator::make(request()->all(), [
             'username' => 'required|string|max:255',
-            'email' => 'required|string|max:255',
+            'email' => 'string|max:255',
             'phone' => 'required|string|max:255',
             'password' => 'required|string|min:8|max:255',
             'confirm_password' => 'required|string|same:password|min:8|max:255',
@@ -78,18 +78,26 @@ class UserController extends Controller
 
     public function getprofile()
     {
+        if (! $user = auth("api")->user()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
         $user = auth("api")->user();
 
         $rawData = DB::table('users')
         ->select('id', 'username', 'phone', 'email', 'created_at', 'updated_at')
         ->where('users.id', '=', $user->id)
-            ->first(); 
+        ->first(); 
         
         return $this->requestSuccessData('Success!', $rawData);
     }
 
     public function editprofile(Request $request)
     {
+        if (! $user = auth("api")->user()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255',
             'photo' => 'image|file|max:10240'
@@ -148,6 +156,10 @@ class UserController extends Controller
  
     public function editpassword(Request $request)
     {	
+        if (! $user = auth("api")->user()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        
         $validator = Validator::make(request()->all(), [
             'old_password' => 'required|string|min:8|max:255',
             'password' => 'required|string|same:password|min:8|max:255',
