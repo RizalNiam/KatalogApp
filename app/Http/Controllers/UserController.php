@@ -22,11 +22,13 @@ class UserController extends Controller
     public function register(Request $request) {
         $validator = Validator::make(request()->all(), [
             'username' => 'required|string|max:255',
-            'email' => 'string|max:255',
+            'email' => 'nullable|string|max:255',
             'phone' => 'required|string|max:255',
             'password' => 'required|string|min:8|max:255',
             'confirm_password' => 'required|string|same:password|min:8|max:255',
         ]);
+
+        var_dump($request['email']);
         
         if ($validator->fails()) {
             return $this->responseValidation($validator->errors(), 'register gagal, silahkan coba kembali');
@@ -159,7 +161,7 @@ class UserController extends Controller
         if (! $user = auth("api")->user()) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-        
+
         $validator = Validator::make(request()->all(), [
             'old_password' => 'required|string|min:8|max:255',
             'password' => 'required|string|same:password|min:8|max:255',
