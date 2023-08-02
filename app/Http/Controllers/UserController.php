@@ -41,12 +41,12 @@ class UserController extends Controller
             return $this->badRequest('Sorry the phone number is already used. Please use a different one');
         }
 
-        $user = User::where('email', $request->email)->first();
+        // $user = User::where('email', $request->email)->first();
 
-        if ($user) {
-            // Jika nomor email sudah terdaftar, kirim response dengan pesan error
-            return $this->badRequest('Sorry the email is already used. Please use a different one');
-        }
+        // if ($user) {
+        //     // Jika nomor email sudah terdaftar, kirim response dengan pesan error
+        //     return $this->badRequest('Sorry the email is already used. Please use a different one');
+        // }
 
         $request['password'] = bcrypt($request['password']);
         $user = User::create($request->all());
