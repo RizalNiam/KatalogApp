@@ -89,7 +89,7 @@ class UserController extends Controller
         $user = auth("api")->user();
 
         $rawData = DB::table('users')
-        ->select('id', 'username', 'phone', 'email', 'created_at', 'updated_at')
+        ->select('id', 'username', 'phone', 'photo', 'email', 'created_at', 'updated_at')
         ->where('users.id', '=', $user->id)
         ->first(); 
         
