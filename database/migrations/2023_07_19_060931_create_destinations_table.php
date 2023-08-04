@@ -16,7 +16,7 @@ class CreateDestinationsTable extends Migration
         Schema::create('destinations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->string('description', 2048);
             $table->string('photo');
             $table->string('facility');
             $table->string('budget');
