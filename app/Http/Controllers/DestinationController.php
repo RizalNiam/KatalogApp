@@ -43,6 +43,17 @@ class DestinationController extends Controller
         return $this->requestSuccess('destination successfully added');
     }
 
+    function get_children_destinations() {
+        $user = auth("api")->user();
+
+        $rawData = DB::table('destinations')
+        ->select('id', 'name', 'photo', 'category', 'budget', 'created_at', 'updated_at')
+        ->where('category', '=', 'children')
+        ->get(); 
+        
+        return $this->requestSuccessData('Success!', $rawData);
+    }
+
     public function delete_image()
     {
         $user = auth('api')->user();

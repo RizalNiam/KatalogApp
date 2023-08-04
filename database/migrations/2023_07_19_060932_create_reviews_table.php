@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryTable extends Migration
+class CreateReviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('category', function (Blueprint $table) {
-            $table->integer('id');
-            $table->string('name');
+        Schema::create('reviews', function (Blueprint $table) {
+            $table->id();
+            $table->integer('user_id');
+            $table->string('destination_id');
+            $table->integer('rating');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category');
+        Schema::dropIfExists('reviews');
     }
 }

@@ -14,7 +14,6 @@ class BookmarkController extends Controller
     public function addbookmark(Request $request) {
         $validator = Validator::make(request()->all(), [
             'destination_id' => 'required|numeric|max:255',
-            'user_id' => 'required|numeric|max:255',
         ]);
         
         if ($validator->fails()) {
@@ -25,7 +24,7 @@ class BookmarkController extends Controller
 
         DB::table('bookmarks')->insert([
             'destination_id' => $request['destination_id'],
-            'user_id' => $user->username,
+            'user_id' => $user->id,
         ]);
 
         return $this->requestSuccess('bookmark successfully added');

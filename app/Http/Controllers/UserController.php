@@ -89,7 +89,7 @@ class UserController extends Controller
         $user = auth("api")->user();
 
         $rawData = DB::table('users')
-        ->select('id', 'username', 'phone', 'photo', 'email', 'created_at', 'updated_at')
+        ->select('id', 'username', 'phone', 'profile_photo_path', 'email', 'created_at', 'updated_at')
         ->where('users.id', '=', $user->id)
         ->first(); 
         
@@ -126,19 +126,19 @@ class UserController extends Controller
             ->where('id', $user->id)
             ->update([
                 'username' => $request['username'],
-                'photo' => $link
+                'profile_photo_path' => $link
             ]);
         } else{
             DB::table('users')
             ->where('id', $user->id)
             ->update([
                 'username' => $request['username'],
-                'photo' => null
+                'profile_photo_path' => null
             ]);
         } 
 
         $rawData = DB::table('users')
-        ->select('id', 'username', 'photo', 'phone', 'email', 'created_at', 'updated_at')
+        ->select('id', 'username', 'profile_photo_path', 'phone', 'email', 'created_at', 'updated_at')
         ->where('id', '=', $user->id)
         ->first();
 
