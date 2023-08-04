@@ -15,7 +15,7 @@ class DestinationController extends Controller
         $validator = Validator::make(request()->all(), [
             'name' => 'string|max:255',
             'city' => 'string|max:255',
-            'description' => 'string|max:255',
+            'description' => 'string|max:2048',
             'facility' => 'string|max:255',
             'budget' => 'string|max:255',
             'photo' => 'image|file|max:10240',
