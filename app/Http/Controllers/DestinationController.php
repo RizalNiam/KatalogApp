@@ -14,7 +14,6 @@ class DestinationController extends Controller
     public function add_destination(Request $request) {
         $validator = Validator::make(request()->all(), [
             'name' => 'string|max:255',
-            'city' => 'string|max:255',
             'description' => 'string|max:2048',
             'facility' => 'string|max:255',
             'budget' => 'string|max:255',
@@ -32,7 +31,6 @@ class DestinationController extends Controller
 
         DB::table('destinations')->insert([
             'name' => $request['name'],
-            'city' => $request['city'],
             'description' => $request['description'],
             'facility' => $request['facility'],
             'budget' => $request['budget'],
