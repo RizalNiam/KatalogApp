@@ -18,7 +18,7 @@ class DestinationController extends Controller
             'facility' => 'string|max:255',
             'budget' => 'string|max:255',
             'photo' => 'image|file|max:10240',
-            'category_id' => 'string|max:255',
+            'category' => 'string|max:255',
         ]);
         
         if ($validator->fails()) {
@@ -35,7 +35,7 @@ class DestinationController extends Controller
             'facility' => $request['facility'],
             'budget' => $request['budget'],
             'photo' => $link,
-            'category_id' => $request['category_id'],
+            'category' => $request['category'],
         ]);
 
         return $this->requestSuccess('destination successfully added');
