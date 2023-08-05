@@ -18,7 +18,7 @@ class CreateDestinationsTable extends Migration
             $table->string('name');
             $table->string('description', 2048);
             $table->string('photo');
-            $table->string('facility');
+            $table->string('facility')->nullable();
             $table->string('budget');
             $table->string('category');
             $table->timestamps();
