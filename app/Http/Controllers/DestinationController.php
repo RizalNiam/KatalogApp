@@ -68,7 +68,6 @@ class DestinationController extends Controller
 
         $rawData = DB::table('destinations')
         ->select('id', 'name', 'photo', 'category', 'budget', 'created_at', 'updated_at')
-        ->orderByRaw('RAND()')
         ->get(); 
         
         return $this->requestSuccessData('Success!', $rawData);
