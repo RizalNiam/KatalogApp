@@ -63,6 +63,17 @@ class DestinationController extends Controller
         return $this->requestSuccessData('Success!', $rawData);
     }
 
+    function get_all_destinations() {
+        $user = auth("api")->user();
+
+        $rawData = DB::table('destinations')
+        ->select('id', 'name', 'photo', 'category', 'budget', 'created_at', 'updated_at')
+        ->orderByRaw('RAND()')
+        ->get(); 
+        
+        return $this->requestSuccessData('Success!', $rawData);
+    }
+
     public function delete_image()
     {
         $user = auth('api')->user();

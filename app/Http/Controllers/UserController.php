@@ -54,7 +54,7 @@ class UserController extends Controller
         $user = User::create($request->all());
 
 
-        return $this->requestSuccess('Registrstion Success', '200');
+        return $this->requestSuccess('Registration Success', '200');
     }
  
     /**
