@@ -28,6 +28,7 @@ Route::middleware('jwt.verify')->group(function () {
     Route::post('auth/editprofile', [UserController::class, 'editprofile']);
     Route::post('auth/destination', [DestinationController::class, 'add_destination']);
     Route::get('auth/children_destinations', [DestinationController::class, 'get_children_destinations']);
+    Route::get('auth/nature_destinations', [DestinationController::class, 'get_nature_destinations']);
     Route::get('auth/img_slider', [DestinationController::class, 'get_img_slider']);
     Route::post('auth/addreview', [ReviewController::class, 'addreview']);
     Route::post('auth/addbookmark', [BookmarkController::class, 'addbookmark']);
