@@ -67,8 +67,9 @@ class DestinationController extends Controller
         $user = auth("api")->user();
 
         $rawData = DB::table('destinations')
-        ->select('id', 'name', 'photo', 'category', 'budget', 'created_at', 'updated_at')
-        ->get(); 
+        ->inRandomOrder()
+        ->limit(20)
+        ->get();
         
         return $this->requestSuccessData('Success!', $rawData);
     }
