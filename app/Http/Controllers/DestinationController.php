@@ -14,6 +14,7 @@ class DestinationController extends Controller
     public function add_destination(Request $request) {
         $validator = Validator::make(request()->all(), [
             'name' => 'string|max:255',
+            'address' => 'string|max:255',
             'description' => 'string|max:2048',
             'facility' => 'string|max:255',
             'budget' => 'string|max:255',
@@ -31,6 +32,7 @@ class DestinationController extends Controller
 
         DB::table('destinations')->insert([
             'name' => $request['name'],
+            'address' => $request['address'],
             'description' => $request['description'],
             'facility' => $request['facility'],
             'budget' => $request['budget'],
@@ -45,7 +47,7 @@ class DestinationController extends Controller
         $user = auth("api")->user();
 
         $rawData = DB::table('destinations')
-        ->select('id', 'name', 'photo', 'category', 'budget', 'created_at', 'updated_at')
+        ->select('id', 'name', 'address', 'photo', 'category', 'budget', 'created_at', 'updated_at')
         ->where('category', '=', 'children')
         ->get(); 
         
@@ -56,7 +58,7 @@ class DestinationController extends Controller
         $user = auth("api")->user();
 
         $rawData = DB::table('destinations')
-        ->select('id', 'name', 'photo', 'category', 'budget', 'created_at', 'updated_at')
+        ->select('id', 'name', 'address', 'photo', 'category', 'budget', 'created_at', 'updated_at')
         ->where('category', '=', 'nature')
         ->get(); 
         
@@ -94,7 +96,7 @@ class DestinationController extends Controller
         $limit = $_GET['limit'];
 
         $rawData = DB::table('destinations')
-        ->select('id', 'name', 'photo')
+        ->select('id', 'name', 'address', 'photo')
         ->take($limit)
         ->get(); 
         
