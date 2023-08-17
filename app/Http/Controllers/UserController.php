@@ -102,7 +102,7 @@ class UserController extends Controller
             $rawData = DB::table('destinations')
             ->join('bookmarks', 'destinations.id', '=', 'bookmarks.destination_id')
             ->join('users', 'bookmarks.user_id', '=', 'users.id')
-            ->select('destinations.id', 'destinations.name', 'destinations.address', 'destinations.photo', 'destinations.category', 'destinations.budget', 'destinations.created_at', 'destinations.updated_at')
+            ->select('users.username as user', 'destinations.name', 'destinations.address', 'destinations.photo', 'destinations.category', 'destinations.budget', 'destinations.created_at', 'destinations.updated_at')
             ->where('bookmarks.user_id', '=', $user->id)
             ->get();        
             
