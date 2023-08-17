@@ -66,9 +66,10 @@ class DestinationController extends Controller
     }
 
     function get_all_destinations() {
-        $user = auth("api")->user();
+        $destination = auth("api")->user();
 
         $rawData = DB::table('destinations')
+        ->select('destinations.id', 'destinations.name', 'destinations.address', 'destinations.photo', 'destinations.category', 'destinations.budget', 'destinations.created_at', 'destinations.updated_at')
         ->inRandomOrder()
         ->limit(20)
         ->get();
