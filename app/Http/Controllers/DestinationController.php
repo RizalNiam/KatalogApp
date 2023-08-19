@@ -47,7 +47,7 @@ class DestinationController extends Controller
         $user = auth("api")->user();
 
         $rawData = DB::table('destinations')
-        ->select('id', 'name', 'address', 'photo', 'category', 'budget', 'created_at', 'updated_at')
+        ->select('id', 'name', 'address', 'description', 'photo', 'category', 'budget', 'created_at', 'updated_at')
         ->where('category', '=', 'children')
         ->get(); 
         
@@ -58,7 +58,7 @@ class DestinationController extends Controller
         $user = auth("api")->user();
 
         $rawData = DB::table('destinations')
-        ->select('id', 'name', 'address', 'photo', 'category', 'budget', 'created_at', 'updated_at')
+        ->select('id', 'name', 'address', 'description', 'photo', 'category', 'budget', 'created_at', 'updated_at')
         ->where('category', '=', 'nature')
         ->get(); 
         
@@ -69,9 +69,8 @@ class DestinationController extends Controller
         $destination = auth("api")->user();
 
         $rawData = DB::table('destinations')
-        ->select('destinations.id', 'destinations.name', 'destinations.address', 'destinations.photo', 'destinations.category', 'destinations.budget', 'destinations.created_at', 'destinations.updated_at')
+        ->select('id', 'name', 'address', 'description', 'photo', 'category', 'budget', 'created_at', 'updated_at')
         ->inRandomOrder()
-        ->limit(20)
         ->get();
         
         return $this->requestSuccessData('Success!', $rawData);

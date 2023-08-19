@@ -103,7 +103,7 @@ class UserController extends Controller
             ->join('bookmarks', 'destinations.id', '=', 'bookmarks.destination_id')
             ->join('users', 'bookmarks.user_id', '=', 'users.id')
             ->select('users.username as user', 'destinations.name as destination', 'destinations.description','destinations.address', 'destinations.photo', 'destinations.category', 'destinations.budget', 'destinations.created_at', 'destinations.updated_at')
-            ->where('bookmarks.user_id', '=', $user->id)
+            ->where('bookmarks.user_i`  d', '=', $user->id)
             ->get();        
             
             return $this->requestSuccessData('Success!', $rawData);
