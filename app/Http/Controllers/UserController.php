@@ -231,7 +231,7 @@ class UserController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithToken($this->refresh());
     }
  
     /**
